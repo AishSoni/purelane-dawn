@@ -57,8 +57,8 @@
           -%}
           <article class="glass pl-card {{ reveal }}">
             <div class="shot">
-              {%- if product.metafields.custom.badge != blank -%}
-                <span class="pill">{{ product.metafields.custom.badge | escape }}</span>
+              {%- if product.metafields.custom.badge.value != blank -%}
+                <span class="pill">{{ product.metafields.custom.badge.value | escape }}</span>
               {%- endif -%}
               {%- if product.featured_image != blank -%}
                 {%- assign pl_alt = product.featured_image.alt | default: product.title | escape -%}
@@ -81,7 +81,7 @@
 
             {%- liquid
               assign pl_rating = product.metafields.reviews.rating.value
-              assign pl_rating_count = product.metafields.reviews.rating_count
+              assign pl_rating_count = product.metafields.reviews.rating_count.value
             -%}
             {%- if section.settings.show_rating and pl_rating != blank -%}
               <div class="rate" title="{{ pl_rating | escape }} out of 5">
@@ -128,7 +128,7 @@
   "name": "Purelane product grid",
   "tag": "section",
   "class": "section",
-  "enabled_on": { "templates": ["*"] },
+  "enabled_on": { "templates": ["index"] },
   "settings": [
     {
       "type": "text",
