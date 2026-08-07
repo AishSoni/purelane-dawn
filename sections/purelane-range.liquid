@@ -7,7 +7,7 @@
 
 {%- liquid
   assign range_collection = section.settings.collection
-  assign range_products = range_collection.products | where: 'featured_image', true
+  assign range_products = range_collection.products | where: 'featured_image'
 -%}
 
 <section
@@ -56,7 +56,7 @@
   "name": "Purelane full range",
   "tag": "section",
   "class": "section",
-  "enabled_on": { "templates": ["*"] },
+  "enabled_on": { "templates": ["index"] },
   "settings": [
     {
       "type": "text",

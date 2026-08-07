@@ -40,7 +40,7 @@
 
         {%- if proof_collection != blank and proof_collection.products_count > 0 -%}
           {%- liquid
-            assign rot_products = proof_collection.products | where: 'featured_image', true
+            assign rot_products = proof_collection.products | where: 'featured_image'
             assign rot_count = rot_products.size
 
             assign note = 'Best seller'
@@ -53,7 +53,7 @@
                   src="{{ product.featured_image | image_url: width: 400 }}"
                   alt="{{ product.featured_image.alt | default: product.title | escape }}"
                   data-name="{{ product.title | escape }}"
-                  data-note="{{ product.metafields.custom.rotator_note | default: note | escape }}"
+                  data-note="{{ product.metafields.custom.rotator_note.value | default: note | escape }}"
                   loading="lazy"
                 >
               {%- endfor -%}
@@ -88,7 +88,7 @@
   "name": "Purelane proof",
   "tag": "section",
   "class": "section",
-  "enabled_on": { "templates": ["*"] },
+  "enabled_on": { "templates": ["index"] },
   "settings": [
     {
       "type": "text",
