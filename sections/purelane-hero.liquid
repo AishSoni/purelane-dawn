@@ -1,0 +1,387 @@
+{%- comment -%}
+  Purelane hero (section.hero)
+  ----------------------------
+  Rebuilds the prototype's hero: headline + promise badges + animated
+  1/2/3-product stage with live prices computed from the referenced
+  Shopify products. Copy, badges and slides are all merchant-editable;
+  nothing is hardcoded. The fixed underwater "scenes" canvas renders
+  once inside this section (removing the section removes its backdrop).
+
+  IDs are scoped to the section so the section can be duplicated or
+  reordered without breaking JS.
+{%- endcomment -%}
+
+{%- liquid
+  assign reduce_motion = false
+-%}
+
+<section
+  class="hero purelane-hero"
+  id="shopify-section-{{ section.id }}"
+  data-pl
+  data-scene="1"
+  aria-label="{{ section.settings.aria_label | default: 'Purelane hero' }}"
+>
+  {%- comment -%}Fixed underwater canvas (z-index 0, behind content).{%- endcomment -%}
+  {%- render 'pl-scene' -%}
+
+  <div class="hero-grid">
+    {%- if section.blocks.size > 0 -%}
+      <div class="pl-badges glass-2" aria-label="Product promises">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'badge' -%}
+            <div class="pl-badge" {{ block.shopify_attributes }}>
+              <span class="bi">{% render 'pl-icon', icon: block.settings.icon, size: 19 %}</span>
+              <span>{{ block.settings.label | escape | newline_to_br }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <div class="hero-copy">
+      <h1 class="d1 rv in">
+        {{ section.settings.heading | default: 'Clean' | escape | newline_to_br }}
+        {%- if section.settings.heading_accent != blank -%}
+          <br><span class="lime">{{ section.settings.heading_accent | escape }}</span>
+        {%- endif -%}
+      </h1>
+
+      <div class="rule rv rv-d1">
+        <i></i>
+        {% render 'pl-icon', icon: 'leaf', size: 16, stroke: 1.6 %}
+        <i></i>
+      </div>
+
+      {%- if section.settings.lede != blank -%}
+        <p class="lede rv rv-d2">{{ section.settings.lede | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.cta_label_1 != blank or section.settings.cta_label_2 != blank -%}
+        <div class="hero-cta rv rv-d3">
+          {%- if section.settings.cta_label_1 != blank -%}
+            <a class="btn btn-primary" href="{{ section.settings.cta_link_1 | default: '#' }}">
+              {{ section.settings.cta_label_1 | escape }}
+              {% render 'pl-icon', icon: 'arrow', size: 15, stroke: 2.2 %}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.cta_label_2 != blank -%}
+            <a class="btn btn-ghost" href="{{ section.settings.cta_link_2 | default: '#' }}">{{ section.settings.cta_label_2 | escape }}</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="badgestrip rv rv-d4">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'badge' -%}
+              <div class="glass-2" {{ block.shopify_attributes }}>
+                {% render 'pl-icon', icon: block.settings.icon, size: 18, stroke: 1.6 %}
+                {{ block.settings.label | escape }}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- assign slide_count = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'slide' -%}
+        {%- assign slide_count = slide_count | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if slide_count > 0 -%}
+      <div class="hero-prod" data-hero-prod>
+        <div class="hstage" data-hstage>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'slide' -%}
+              {%- liquid
+                assign items = 0
+                assign total = 0
+                assign cmp = 0
+
+                assign p1 = block.settings.product_1
+                if p1 != blank
+                  assign v1 = p1.first_available_variant
+                  unless v1
+                    assign v1 = p1.variants.first
+                  endunless
+                  if v1 != blank
+                    assign total = total | plus: v1.price
+                    if v1.compare_at_price > v1.price
+                      assign cmp = cmp | plus: v1.compare_at_price
+                    else
+                      assign cmp = cmp | plus: v1.price
+                    endif
+                    assign items = items | plus: 1
+                  endif
+                endif
+
+                assign p2 = block.settings.product_2
+                if p2 != blank
+                  assign v2 = p2.first_available_variant
+                  unless v2
+                    assign v2 = p2.variants.first
+                  endunless
+                  if v2 != blank
+                    assign total = total | plus: v2.price
+                    if v2.compare_at_price > v2.price
+                      assign cmp = cmp | plus: v2.compare_at_price
+                    else
+                      assign cmp = cmp | plus: v2.price
+                    endif
+                    assign items = items | plus: 1
+                  endif
+                endif
+
+                assign p3 = block.settings.product_3
+                if p3 != blank
+                  assign v3 = p3.first_available_variant
+                  unless v3
+                    assign v3 = p3.variants.first
+                  endunless
+                  if v3 != blank
+                    assign total = total | plus: v3.price
+                    if v3.compare_at_price > v3.price
+                      assign cmp = cmp | plus: v3.compare_at_price
+                    else
+                      assign cmp = cmp | plus: v3.price
+                    endif
+                    assign items = items | plus: 1
+                  endif
+                endif
+
+                assign diff = cmp | minus: total
+                assign pct = cmp | minus: total | times: 100 | divided_by: cmp | round
+                assign lbl = block.settings.label
+                if lbl == blank
+                  if items == 1
+                    assign lbl = 'Single bottle'
+                  elsif items == 2
+                    assign lbl = 'Any 2 products'
+                  else
+                    assign lbl = 'Any ' | append: items | append: ' products'
+                  endif
+                endif
+                if items == 1
+                  assign cut = pct | append: '% off'
+                else
+                  assign cut = 'Save ' | append: diff | money_without_trailing_zeros
+                endif
+              -%}
+
+              <div class="hslide hs{{ items }}" data-slide="{{ forloop.index }}">
+                {%- if p1 != blank -%}
+                  <img
+                    class="hp pimg a d1"
+                    src="{{ p1.featured_image | image_url: width: 800 }}"
+                    alt="{{ p1.featured_image.alt | default: p1.title | escape }}"
+                    width="{{ p1.featured_image.width }}"
+                    height="{{ p1.featured_image.height }}"
+                    loading="{% if forloop.first and items <= 2 %}eager{% else %}lazy{% endif %}"
+                    {% if forloop.first %}fetchpriority="high"{% endif %}
+                  >
+                {%- else -%}
+                  <span class="hp pimg pimg--placeholder a d1">{% render 'pl-icon', icon: 'leaf', size: 34 %}</span>
+                {%- endif -%}
+
+                {%- if p2 != blank -%}
+                  <img
+                    class="hp pimg b d2"
+                    src="{{ p2.featured_image | image_url: width: 800 }}"
+                    alt="{{ p2.featured_image.alt | default: p2.title | escape }}"
+                    width="{{ p2.featured_image.width }}"
+                    height="{{ p2.featured_image.height }}"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+
+                {%- if p3 != blank -%}
+                  <img
+                    class="hp pimg c d3"
+                    src="{{ p3.featured_image | image_url: width: 800 }}"
+                    alt="{{ p3.featured_image.alt | default: p3.title | escape }}"
+                    width="{{ p3.featured_image.width }}"
+                    height="{{ p3.featured_image.height }}"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+
+                <div class="glass-2 ptag">
+                  <span class="lbl">{{ lbl }}</span>
+                  <span class="val"><strong>{{ total | money }}</strong><s>{{ cmp | money }}</s></span>
+                  <span class="cut">{{ cut }}</span>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if slide_count > 1 -%}
+          <div class="hdots" data-hdots>
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'slide' -%}
+                <button
+                  type="button"
+                  aria-label="Show {{ forloop.index }} product{% if block.settings.product_2 != blank %}s{% endif %}"
+                ></button>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane hero",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": { "templates": ["*"] },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Headline (one line per row)",
+      "default": "Clean\nThat"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Accent line (highlighted)",
+      "default": "Lasts"
+    },
+    {
+      "type": "header",
+      "content": "Copy"
+    },
+    {
+      "type": "textarea",
+      "id": "lede",
+      "label": "Intro text",
+      "default": "Homecare that works on the toughest grime, made from plants. Kind to your home, your family and the world outside it."
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_label_1",
+      "label": "Primary button label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "cta_link_1",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "cta_label_2",
+      "label": "Secondary button label",
+      "default": "How it works"
+    },
+    {
+      "type": "url",
+      "id": "cta_link_2",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Accessibility"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Section aria-label",
+      "default": "Purelane hero"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Promise badge",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "shield", "label": "Shield check" },
+            { "value": "ban", "label": "Circle slash" }
+          ],
+          "default": "leaf"
+        },
+        {
+          "type": "textarea",
+          "id": "label",
+          "label": "Label (one line per row)",
+          "default": "Plant\npowered"
+        }
+      ]
+    },
+    {
+      "type": "slide",
+      "name": "Product slide",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "product",
+          "id": "product_2",
+          "label": "Product 2 (optional)"
+        },
+        {
+          "type": "product",
+          "id": "product_3",
+          "label": "Product 3 (optional)"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Price tag label (blank = automatic)",
+          "info": "Defaults to \"Single bottle\", \"Any 2 products\", etc."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Purelane hero",
+      "blocks": [
+        {
+          "type": "badge",
+          "settings": { "icon": "leaf", "label": "Plant\npowered" }
+        },
+        {
+          "type": "badge",
+          "settings": { "icon": "shield", "label": "Safe for\nkids & pets" }
+        },
+        {
+          "type": "badge",
+          "settings": { "icon": "ban", "label": "Zero harsh\nchemicals" }
+        },
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" }
+      ]
+    }
+  ]
+}
+{% endschema %}
