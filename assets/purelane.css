@@ -872,6 +872,23 @@ body {
   transform: none;
 }
 
+/* Success / error captions inside the signup glass. */
+.signup .signup-ok {
+  margin: 12px auto 0;
+  font-size: 14px;
+  color: var(--ink);
+}
+.signup .signup-err {
+  color: #b3382c;
+}
+
+/* Reviews marquee: the duplicate half is a second flex row so the
+   50% loop seam is seamless (delta), same gap as .revtrack. */
+.revdup {
+  display: flex;
+  gap: 12px;
+}
+
 /* Reduced motion: kill every animation on the home page, matching the
    prototype's behaviour but with a slightly stronger reset. */
 @media (prefers-reduced-motion: reduce) {
