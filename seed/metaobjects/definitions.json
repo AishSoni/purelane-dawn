@@ -1,0 +1,34 @@
+{
+  "definitions": [
+    {
+      "name": "combo",
+      "type": "combo",
+      "displayName": "Combo",
+      "description": "A pre-built product combo shown in the Best-selling combos rail.",
+      "fieldDefinitions": [
+        { "name": "name", "type": "single_line_text_field", "displayName": "Name", "validations": [{ "name": "required" }] },
+        { "name": "tagline", "type": "single_line_text_field", "displayName": "Tagline", "validations": [] },
+        { "name": "inc", "type": "multi_line_text_field", "displayName": "What's included", "validations": [] },
+        { "name": "banner", "type": "single_line_text_field", "displayName": "Banner pill (blank = auto \"You save\")", "validations": [] },
+        { "name": "featured", "type": "boolean", "displayName": "Featured (Most popular flag)", "validations": [] },
+        { "name": "price", "type": "number_decimal", "displayName": "Combo price (blank = sum of products)", "validations": [] },
+        { "name": "link", "type": "url", "displayName": "Shop bundle link", "validations": [] },
+        { "name": "products", "type": "product_reference", "displayName": "Products", "validations": [] }
+      ]
+    },
+    {
+      "name": "review",
+      "type": "review",
+      "displayName": "Review",
+      "description": "A customer review card in the reviews marquee.",
+      "fieldDefinitions": [
+        { "name": "author", "type": "single_line_text_field", "displayName": "Author", "validations": [{ "name": "required" }] },
+        { "name": "rating", "type": "number_integer", "displayName": "Rating (1-5)", "validations": [{ "name": "min", "value": "1" }, { "name": "max", "value": "5" }] },
+        { "name": "title", "type": "single_line_text_field", "displayName": "Title", "validations": [] },
+        { "name": "body", "type": "multi_line_text_field", "displayName": "Body", "validations": [] },
+        { "name": "context", "type": "single_line_text_field", "displayName": "Context (e.g. Bought for the kitchen)", "validations": [] },
+        { "name": "verified", "type": "boolean", "displayName": "Verified purchase", "validations": [] }
+      ]
+    }
+  ]
+}
