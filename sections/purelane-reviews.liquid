@@ -1,0 +1,152 @@
+{%- comment -%}
+  Purelane reviews rail (#reviews)
+  --------------------------------
+  Auto-scrolling review marquee. Review content is merchant-editable
+  via the "review" metaobject definition (author, rating, title, body,
+  context). Aggregate stats are plain settings. The track is duplicated
+  once for a seamless loop; the duplicate copy is hidden from assistive
+  tech so screen readers hear every review exactly once.
+{%- endcomment -%}
+
+{%- liquid
+  assign reviews = shop.metaobjects.review.values | take: section.settings.reviews_to_show
+  assign reviews_count = reviews.size
+-%}
+
+<section
+  class="sec revband"
+  id="shopify-section-{{ section.id }}"
+  data-pl
+  data-scene="1"
+  aria-label="Customer reviews"
+>
+  <div class="wrap">
+    <div class="revhead rv">
+      {%- if section.settings.kicker != blank -%}
+        <span class="kicker">{{ section.settings.kicker | escape }}</span>
+      {%- endif -%}
+      <span class="agg">
+        <span class="st" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <b>{{ section.settings.rating_value | escape }}</b>
+        {{ section.settings.review_count_text | escape }}
+      </span>
+      {%- if section.settings.homes_text != blank -%}
+        <span class="agg">Loved by <b>{{ section.settings.homes_value | escape }}</b> {{ section.settings.homes_text | escape }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if reviews_count > 0 -%}
+    <div class="revrail rv">
+      <div class="revtrack">
+        {%- for review in reviews -%}
+          <article class="glass-2 rcard">
+            <div class="st" aria-hidden="true">
+              {%- for i in (1..review.rating.value) -%}&#9733;{%- endfor -%}
+            </div>
+            <h5>{{ review.title.value | escape }}</h5>
+            <p>{{ review.body.value | escape }}</p>
+            <div class="who">
+              {%- if review.verified.value -%}
+                {% render 'pl-icon', icon: 'check', size: 12, stroke: 3 %}
+              {%- endif -%}
+              <b>{{ review.author.value | escape }}</b>
+              {%- if review.context.value != blank -%}
+                <span>&middot; {{ review.context.value | escape }}</span>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endfor -%}
+
+        {%- comment -%}Second copy for the seamless marquee loop (hidden from AT).{%- endcomment -%}
+        <div class="revdup" aria-hidden="true">
+          {%- for review in reviews -%}
+            <article class="glass-2 rcard">
+              <div class="st" aria-hidden="true">
+                {%- for i in (1..review.rating.value) -%}&#9733;{%- endfor -%}
+              </div>
+              <h5>{{ review.title.value | escape }}</h5>
+              <p>{{ review.body.value | escape }}</p>
+              <div class="who">
+                {%- if review.verified.value -%}
+                  {% render 'pl-icon', icon: 'check', size: 12, stroke: 3 %}
+                {%- endif -%}
+                <b>{{ review.author.value | escape }}</b>
+                {%- if review.context.value != blank -%}
+                  <span>&middot; {{ review.context.value | escape }}</span>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Purelane reviews rail",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": { "templates": ["*"] },
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "That's what they said"
+    },
+    {
+      "type": "header",
+      "content": "Aggregate stats"
+    },
+    {
+      "type": "text",
+      "id": "rating_value",
+      "label": "Aggregate rating",
+      "default": "4.8"
+    },
+    {
+      "type": "text",
+      "id": "review_count_text",
+      "label": "Review count text",
+      "default": "from 8,000+ reviews"
+    },
+    {
+      "type": "text",
+      "id": "homes_value",
+      "label": "Homes statistic (highlighted)",
+      "default": "30,000+"
+    },
+    {
+      "type": "text",
+      "id": "homes_text",
+      "label": "Homes statistic label",
+      "default": "happy homes"
+    },
+    {
+      "type": "header",
+      "content": "Reviews"
+    },
+    {
+      "type": "range",
+      "id": "reviews_to_show",
+      "label": "Reviews to show",
+      "min": 2,
+      "max": 24,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "paragraph",
+      "content": "Review cards come from the \"review\" metaobject (Settings > Custom data > Reviews). Fields: author, rating, title, body, context, verified."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane reviews rail"
+    }
+  ]
+}
+{% endschema %}
