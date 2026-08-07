@@ -1,0 +1,123 @@
+{%- comment -%}
+  Purelane pillars (#how)
+  -----------------------
+  Three promise cards ("Less scrubbing", "Clean ingredients",
+  "Safe around everyone") as editable blocks with icon, copy and link.
+{%- endcomment -%}
+
+<section
+  class="sec"
+  id="shopify-section-{{ section.id }}"
+  data-pl
+  data-scene="2"
+  aria-label="{{ section.settings.heading | default: 'How it works' }}"
+>
+  <div class="wrap">
+    <div class="pillars">
+      {%- for block in section.blocks -%}
+        <article class="glass pillar rv{% if forloop.index > 1 %} rv-d{{ forloop.index }}{% endif %}" {{ block.shopify_attributes }}>
+          <span class="pi">{% render 'pl-icon', icon: block.settings.icon, size: 22 %}</span>
+          <h3 class="d3">{{ block.settings.title | escape }}</h3>
+          <p class="body-s">{{ block.settings.body | escape }}</p>
+          {%- if block.settings.link_label != blank -%}
+            <a class="btn btn-ghost btn-sm" href="{{ block.settings.link | default: '#' }}">
+              {{ block.settings.link_label | escape }}
+              {% render 'pl-icon', icon: 'arrow', size: 14, stroke: 2.2 %}
+            </a>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane pillars",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Pillar",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "star", "label": "Star" }
+          ],
+          "default": "sparkle"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Less scrubbing"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "A foaming formulation. The foam clings to grease and lifts it, so you wipe instead of scrub."
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label",
+          "default": "Learn more"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Purelane pillars",
+      "blocks": [
+        {
+          "type": "pillar",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Less scrubbing",
+            "body": "A foaming formulation. The foam clings to grease and lifts it, so you wipe instead of scrub.",
+            "link_label": "Learn more"
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "icon": "leaf",
+            "title": "Clean ingredients",
+            "body": "No sulphates, no chlorine, no synthetic fragrance. Nothing on the label you would not want near your food.",
+            "link_label": "Learn more"
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "icon": "shield",
+            "title": "Safe around everyone",
+            "body": "Gentle on hands, safe around kids and pets, and it leaves no toxic residue on the surfaces you touch every day.",
+            "link_label": "Learn more"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
