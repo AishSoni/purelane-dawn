@@ -1,0 +1,72 @@
+{
+  "kitchen-essentials": {
+    "name": "Kitchen essentials",
+    "tagline": "Dishwash + kitchen cleaner",
+    "inc": "Foaming Kitchen Cleaner (500 ml)\nOrganic Dishwash Liquid Gel (500 ml)",
+    "banner": "",
+    "featured": true,
+    "price": 349,
+    "link": "/collections/all",
+    "products": [
+      "purelane-foaming-kitchen-cleaner",
+      "purelane-organic-dishwash-liquid-gel"
+    ]
+  },
+  "laundry-care-bundle": {
+    "name": "Laundry care bundle",
+    "tagline": "Detergent + machine care",
+    "inc": "Non-Toxic Laundry Detergent (500 ml)\nWashing Machine Cleaner & Descaler\nMagic Cleaning Eraser",
+    "banner": "",
+    "featured": false,
+    "price": 499,
+    "link": "/collections/all",
+    "products": [
+      "purelane-non-toxic-laundry-detergent",
+      "purelane-washing-machine-cleaner-descaler",
+      "purelane-magic-cleaning-eraser"
+    ]
+  },
+  "complete-home-bundle": {
+    "name": "Complete home bundle",
+    "tagline": "One order, every room",
+    "inc": "Foaming Kitchen Cleaner\nOrganic Dishwash Liquid Gel\nNatural Herbal Floor Cleaner\nNon-Toxic Laundry Detergent\nGentle Hydrating Liquid Handwash",
+    "banner": "Best value",
+    "featured": false,
+    "price": 799,
+    "link": "/collections/all",
+    "products": [
+      "purelane-foaming-kitchen-cleaner",
+      "purelane-organic-dishwash-liquid-gel",
+      "purelane-natural-herbal-floor-cleaner",
+      "purelane-non-toxic-laundry-detergent",
+      "purelane-gentle-hydrating-liquid-handwash"
+    ]
+  },
+  "bathroom-deep-clean": {
+    "name": "Bathroom deep clean",
+    "tagline": "Toilet, taps & hands",
+    "inc": "Non-Toxic Toilet Cleaner (500 ml)\nTap Cleaner & Limescale Remover (500 ml)\nGentle Hydrating Liquid Handwash (500 ml)",
+    "banner": "",
+    "featured": false,
+    "price": 499,
+    "link": "/collections/all",
+    "products": [
+      "purelane-non-toxic-toilet-cleaner",
+      "purelane-tap-cleaner-limescale-remover",
+      "purelane-gentle-hydrating-liquid-handwash"
+    ]
+  },
+  "hard-water-solution-kit": {
+    "name": "Hard water solution kit",
+    "tagline": "For limescale-prone homes",
+    "inc": "Tap Cleaner & Limescale Remover (500 ml)\nWashing Machine Cleaner & Descaler",
+    "banner": "",
+    "featured": false,
+    "price": 349,
+    "link": "/collections/all",
+    "products": [
+      "purelane-tap-cleaner-limescale-remover",
+      "purelane-washing-machine-cleaner-descaler"
+    ]
+  }
+}
