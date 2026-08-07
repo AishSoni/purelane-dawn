@@ -8,6 +8,18 @@
       "type": "purelane-reviews",
       "settings": {}
     },
+    "purelane-ingredients": {
+      "type": "purelane-ingredients",
+      "settings": {}
+    },
+    "purelane-pillars": {
+      "type": "purelane-pillars",
+      "settings": {}
+    },
+    "purelane-proof": {
+      "type": "purelane-proof",
+      "settings": {}
+    },
     "purelane-combos": {
       "type": "purelane-combos",
       "settings": {}
@@ -19,13 +31,36 @@
     "purelane-shop": {
       "type": "purelane-shop",
       "settings": {}
+    },
+    "purelane-range": {
+      "type": "purelane-range",
+      "settings": {}
+    },
+    "purelane-why-bundles": {
+      "type": "purelane-why-bundles",
+      "settings": {}
+    },
+    "purelane-categories": {
+      "type": "purelane-categories",
+      "settings": {}
+    },
+    "purelane-trust-signup": {
+      "type": "purelane-trust-signup",
+      "settings": {}
     }
   },
   "order": [
     "main",
     "purelane-reviews",
+    "purelane-ingredients",
+    "purelane-pillars",
+    "purelane-proof",
     "purelane-combos",
     "purelane-bundles",
-    "purelane-shop"
+    "purelane-shop",
+    "purelane-range",
+    "purelane-why-bundles",
+    "purelane-categories",
+    "purelane-trust-signup"
   ]
 }
