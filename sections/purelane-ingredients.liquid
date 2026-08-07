@@ -1,0 +1,113 @@
+{%- comment -%}
+  Purelane ingredients (#ingredients)
+  -----------------------------------
+  "Sourced from nature" grid of hero ingredients. Each block is a
+  name + description + icon; copy and icons are merchant-editable, with
+  defaults pulled from the prototype.
+{%- endcomment -%}
+
+<section
+  class="sec"
+  id="shopify-section-{{ section.id }}"
+  data-pl
+  data-scene="2"
+  aria-label="{{ section.settings.heading | escape }}"
+>
+  <div class="wrap">
+    <div class="glass sec-pad rv">
+      <div class="panel-head">
+        {%- if section.settings.kicker != blank -%}
+          <span class="kicker">{{ section.settings.kicker | escape }}</span>
+        {%- endif -%}
+        <h2 class="d2">{{ section.settings.heading | escape }}</h2>
+        <div class="rule"><i></i>{% render 'pl-icon', icon: 'leaf', size: 16 %}<i></i></div>
+      </div>
+      <div class="ing">
+        {%- for block in section.blocks -%}
+          <div class="ing-i" {{ block.shopify_attributes }}>
+            <div class="art" aria-hidden="true">
+              <svg viewBox="0 0 100 100" fill="none" stroke="#ece6f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="50" cy="62" r="25"/>
+                <path d="M50 37V25"/>
+                {%- if block.settings.icon != 'leaf' -%}
+                  <path d="M41 63c4 8 14 8 18 0" opacity=".55"/>
+                {%- endif -%}
+                <path d="M50 27C42 18 30 16 21 21c5 10 17 13 29 6Z" stroke="#f0a03c"/>
+                <path d="M50 27c8-9 20-11 29-6-5 10-17 13-29 6Z" stroke="#f0a03c"/>
+              </svg>
+            </div>
+            <h4>{{ block.settings.name | escape }}</h4>
+            <p>{{ block.settings.body | escape }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane ingredients",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Sourced from nature"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Sourced from nature"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Art motif",
+          "options": [
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "citrus", "label": "Citrus" }
+          ],
+          "default": "leaf"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Ingredient",
+          "default": "Coconut"
+        },
+        {
+          "type": "text",
+          "id": "body",
+          "label": "Description",
+          "default": "Plant-derived cleansers that lift grease"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Purelane ingredients",
+      "blocks": [
+        { "type": "ingredient", "settings": { "name": "Coconut", "body": "Plant-derived cleansers that lift grease" } },
+        { "type": "ingredient", "settings": { "name": "Orange peel", "body": "Natural degreaser and fresh citrus lift" } },
+        { "type": "ingredient", "settings": { "name": "Soap nut", "body": "A traditional plant foaming agent" } },
+        { "type": "ingredient", "settings": { "name": "Neem", "body": "Time-tested antibacterial from the tree" } },
+        { "type": "ingredient", "settings": { "name": "Lemongrass", "body": "Clean fragrance with nothing synthetic" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
