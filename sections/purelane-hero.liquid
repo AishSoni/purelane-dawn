@@ -11,10 +11,6 @@
   reordered without breaking JS.
 {%- endcomment -%}
 
-{%- liquid
-  assign reduce_motion = false
--%}
-
 <section
   class="hero purelane-hero"
   id="shopify-section-{{ section.id }}"
@@ -72,7 +68,7 @@
       {%- endif -%}
 
       {%- if section.blocks.size > 0 -%}
-        <div class="badgestrip rv rv-d4">
+        <div class="pl-badgestrip rv rv-d4">
           {%- for block in section.blocks -%}
             {%- if block.type == 'badge' -%}
               <div class="glass-2" {{ block.shopify_attributes }}>
@@ -95,9 +91,13 @@
     {%- if slide_count > 0 -%}
       <div class="hero-prod" data-hero-prod>
         <div class="hstage" data-hstage>
+          {%- liquid
+            assign slide_i = 0
+          -%}
           {%- for block in section.blocks -%}
             {%- if block.type == 'slide' -%}
               {%- liquid
+                assign slide_i = slide_i | plus: 1
                 assign items = 0
                 assign total = 0
                 assign cmp = 0
@@ -154,7 +154,10 @@
                 endif
 
                 assign diff = cmp | minus: total
-                assign pct = cmp | minus: total | times: 100 | divided_by: cmp | round
+                assign pct = 0
+                if cmp > 0
+                  assign pct = cmp | minus: total | times: 100 | divided_by: cmp | round
+                endif
                 assign lbl = block.settings.label
                 if lbl == blank
                   if items == 1
@@ -168,11 +171,12 @@
                 if items == 1
                   assign cut = pct | append: '% off'
                 else
-                  assign cut = 'Save ' | append: diff | money_without_trailing_zeros
+                  assign save_money = diff | money_without_trailing_zeros
+                  assign cut = 'Save ' | append: save_money
                 endif
               -%}
 
-              <div class="hslide hs{{ items }}" data-slide="{{ forloop.index }}">
+              <div class="hslide hs{{ items }}" data-slide="{{ slide_i }}">
                 {%- if p1 != blank -%}
                   <img
                     class="hp pimg a d1"
@@ -221,11 +225,15 @@
 
         {%- if slide_count > 1 -%}
           <div class="hdots" data-hdots>
+            {%- liquid
+              assign dot_i = 0
+            -%}
             {%- for block in section.blocks -%}
               {%- if block.type == 'slide' -%}
+                {%- assign dot_i = dot_i | plus: 1 -%}
                 <button
                   type="button"
-                  aria-label="Show {{ forloop.index }} product{% if block.settings.product_2 != blank %}s{% endif %}"
+                  aria-label="Show {{ dot_i }} product{% if block.settings.product_2 != blank %}s{% endif %}"
                 ></button>
               {%- endif -%}
             {%- endfor -%}
@@ -241,7 +249,7 @@
   "name": "Purelane hero",
   "tag": "section",
   "class": "section",
-  "enabled_on": { "templates": ["*"] },
+  "enabled_on": { "templates": ["index"] },
   "settings": [
     {
       "type": "header",
