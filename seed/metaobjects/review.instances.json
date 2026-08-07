@@ -1,0 +1,82 @@
+{
+  "review-01": {
+    "author": "Ananya S.",
+    "rating": 5,
+    "title": "Finally one product for every surface",
+    "body": "The kitchen cleaner cuts through months of cooking grease in one wipe. Smells fresh, not perfumed.",
+    "context": "Bought for the kitchen",
+    "verified": true
+  },
+  "review-02": {
+    "author": "Rohit M.",
+    "rating": 5,
+    "title": "Slides right off",
+    "body": "Dishwash gel has been in the kitchen for the last one and a half months. Very less quantity is required, and it cleans exceptionally.",
+    "context": "Restaurant owner",
+    "verified": true
+  },
+  "review-03": {
+    "author": "Priya K.",
+    "rating": 5,
+    "title": "Kid and pet safe",
+    "body": "I was worried about chemicals around my toddler. This cleans just as well and I don't have to hide the bottle.",
+    "context": "Bought for the whole home",
+    "verified": true
+  },
+  "review-04": {
+    "author": "Meera D.",
+    "rating": 4,
+    "title": "Floor cleaner smells amazing",
+    "body": "The herbal floor cleaner leaves the house smelling clean and the floors don't feel sticky afterwards.",
+    "context": "Bought for the floor",
+    "verified": true
+  },
+  "review-05": {
+    "author": "Arjun P.",
+    "rating": 5,
+    "title": "Hard water tap for years, gone",
+    "body": "Years of hard-water limescale on our taps dissolved within minutes, with no scrubbing and no damage to the brass.",
+    "context": "Bought for hard water home",
+    "verified": true
+  },
+  "review-06": {
+    "author": "Sana F.",
+    "rating": 5,
+    "title": "The laundry is brighter",
+    "body": "No fragrances, no residue. Whites are actually getting whiter, which surprised me.",
+    "context": "Bought for the laundry",
+    "verified": true
+  },
+  "review-07": {
+    "author": "Karthik V.",
+    "rating": 4,
+    "title": "Handwash doesn't dry my hands",
+    "body": "Works for my dry, sensitive skin. Keeps the hands soft but gets the grime off.",
+    "context": "Bought after trying the handwash",
+    "verified": true
+  },
+  "review-08": {
+    "author": "Nandini R.",
+    "rating": 5,
+    "title": "No more bleach smell",
+    "body": "Toilet cleaner removes stains without the harsh chlorine smell that used to linger all day.",
+    "context": "Bought for the bathroom",
+    "verified": true
+  },
+  "review-09": {
+    "author": "Deepak T.",
+    "rating": 5,
+    "title": "Brass is a family heirloom that shines now",
+    "body": "The brass cleaner brought back the shine on our Pooja items without any scrubbing or acids.",
+    "context": "Bought for brassware",
+    "verified": true
+  },
+  "review-10": {
+    "author": "Sneha G.",
+    "rating": 5,
+    "title": "The eraser is magical",
+    "body": "Scuffs on the walls came off in seconds. Must have to have at home. I bought the full bundle after trying it.",
+    "context": "Returning customer",
+    "verified": true
+  }
+}
