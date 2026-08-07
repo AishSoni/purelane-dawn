@@ -1,0 +1,86 @@
+{%- comment -%}
+  pl-icon.liquid
+  Shared icon set used across purelane sections.
+  Usage: {% render 'pl-icon', icon: 'leaf', size: 24 %}
+  Icons render as inline SVGs (stroke-based line art) matching the
+  prototype's graphics. No external sprite request needed.
+{%- endcomment -%}
+
+{%- assign size = size | default: 20 | times: 1 -%}
+{%- assign stroke = stroke | default: 1.6 -%}
+<svg
+  class="pl-icon pl-icon-{{ icon }}"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="{{ stroke }}"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+  width="{{ size }}"
+  height="{{ size }}"
+>
+  {%- case icon -%}
+    {%- when 'leaf' -%}
+      <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
+      <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
+    {%- when 'leaf-dot' -%}
+      <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
+      <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
+      <path d="M12 21v-6"/>
+    {%- when 'shield' -%}
+      <path d="M12 3 4.5 6v6.2c0 4.3 3.1 7.6 7.5 8.8 4.4-1.2 7.5-4.5 7.5-8.8V6L12 3Z"/>
+      <path d="m9 12 2.2 2.2L15.4 10"/>
+    {%- when 'ban' -%}
+      <circle cx="12" cy="12" r="8.4"/>
+      <path d="M6.4 17.6 17.6 6.4"/>
+    {%- when 'check' -%}
+      <path d="m5 13 4 4L19 7"/>
+    {%- when 'arrow' -%}
+      <path d="M5 12h13m-5-6 6 6-6 6"/>
+    {%- when 'cart' -%}
+      <path d="M4 6h2l2.2 10.4a1.6 1.6 0 0 0 1.6 1.3h7.6a1.6 1.6 0 0 0 1.6-1.3L20.5 9H6.4"/>
+      <circle cx="10" cy="20.5" r="1.1"/>
+      <circle cx="17.5" cy="20.5" r="1.1"/>
+    {%- when 'search' -%}
+      <circle cx="11" cy="11" r="7"/>
+      <path d="m20 20-3.5-3.5"/>
+    {%- when 'user' -%}
+      <circle cx="12" cy="8" r="3.6"/>
+      <path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/>
+    {%- when 'menu' -%}
+      <path d="M4 8h16M4 16h16"/>
+    {%- when 'close' -%}
+      <path d="M6 6l12 12M18 6 6 18"/>
+    {%- when 'plus' -%}
+      <path d="M12 5v14M5 12h14"/>
+    {%- when 'moon' -%}
+      <path d="M12 3 4.5 6v6.2c0 4.3 3.1 7.6 7.5 8.8 4.4-1.2 7.5-4.5 7.5-8.8V6L12 3Z"/>
+      <path d="M9 21h6"/>
+    {%- when 'heart' -%}
+      <path d="M12 20s-7-4.4-7-9.4A4.1 4.1 0 0 1 12 8a4.1 4.1 0 0 1 7 2.6c0 5-7 9.4-7 9.4Z"/>
+    {%- when 'truck' -%}
+      <path d="M2.6 16.4V7.2h10.2v9.2"/>
+      <path d="M12.8 10.4h4l3.6 3.2v2.8h-7.6"/>
+      <circle cx="6.6" cy="18" r="1.9"/>
+      <circle cx="16.6" cy="18" r="1.9"/>
+    {%- when 'box' -%}
+      <path d="M4 8h16v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/>
+      <path d="M4 8 6.5 3h11L20 8"/>
+      <path d="M9.5 12h5"/>
+    {%- when 'tag' -%}
+      <path d="M12 3v18"/>
+      <path d="M16.5 7.2C15.6 6 14 5.4 12 5.4c-2.4 0-4 1.1-4 2.9 0 2 1.7 2.7 4.2 3.3 2.7.6 4.3 1.4 4.3 3.4 0 1.9-1.7 3.1-4.5 3.1-2.2 0-3.8-.7-4.8-2"/>
+    {%- when 'star' -%}
+      <path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8L3.6 9.7l5.8-.8Z"/>
+    {%- when 'globe' -%}
+      <circle cx="12" cy="12" r="8.6"/>
+      <path d="M3.4 12h17.2M12 3.4c2.4 2.4 3.6 5.4 3.6 8.6s-1.2 6.2-3.6 8.6M12 3.4A8.6 8.6 0 0 0 8.4 20.6"/>
+    {%- when 'sparkle' -%}
+      <path d="M12 5v7M8.5 8.5h7"/>
+      <path d="m15 15 .3.8.8.3-.8.3-.3.8-.3-.8-.8-.3.8-.3Z"/>
+    {%- else -%}
+      <circle cx="12" cy="12" r="8"/>
+  {%- endcase -%}
+</svg>
