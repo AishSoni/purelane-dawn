@@ -78,7 +78,7 @@
             <div class="qty">{{ qty }}<small>Products</small></div>
 
             {%- if price_cents > 0 -%}
-              <div class="price pl-price">
+              <div class="pl-price">
                 <strong>{{ price_cents | money }}</strong>
                 {%- if cmp_cents > 0 -%}
                   <s>{{ cmp_cents | money }}</s>
@@ -126,7 +126,7 @@
   "name": "Purelane bundles",
   "tag": "section",
   "class": "section",
-  "enabled_on": { "templates": ["*"] },
+  "enabled_on": { "templates": ["index"] },
   "settings": [
     {
       "type": "header",
