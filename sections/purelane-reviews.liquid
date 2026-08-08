@@ -9,7 +9,7 @@
 {%- endcomment -%}
 
 {%- liquid
-  assign reviews = shop.metaobjects.review.values | take: section.settings.reviews_to_show
+  assign reviews = shop.metaobjects.review.values
   assign reviews_count = reviews.size
 -%}
 
@@ -39,7 +39,7 @@
   {%- if reviews_count > 0 -%}
     <div class="revrail rv">
       <div class="revtrack">
-        {%- for review in reviews -%}
+        {%- for review in reviews limit: section.settings.reviews_to_show -%}
           <article class="glass-2 rcard">
             <div class="st" aria-hidden="true">
               {%- for i in (1..review.rating.value) -%}&#9733;{%- endfor -%}
@@ -60,7 +60,7 @@
 
         {%- comment -%}Second copy for the seamless marquee loop (hidden from AT).{%- endcomment -%}
         <div class="revdup" aria-hidden="true">
-          {%- for review in reviews -%}
+          {%- for review in reviews limit: section.settings.reviews_to_show -%}
             <article class="glass-2 rcard">
               <div class="st" aria-hidden="true">
                 {%- for i in (1..review.rating.value) -%}&#9733;{%- endfor -%}

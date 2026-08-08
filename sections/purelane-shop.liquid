@@ -10,10 +10,8 @@
   POST is the no-JS fallback).
 {%- endcomment -%}
 
-{%- liquid
-  assign pl_collection = section.settings.collection
-  assign pl_products_to_show = section.settings.products_to_show
--%}
+{%- assign pl_collection = section.settings.collection -%}
+{%- assign pl_products_to_show = section.settings.products_to_show -%}
 
 <section
   id="shopify-section-{{ section.id }}"
@@ -108,7 +106,7 @@
             </div>
 
             {%- if v -%}
-              <form method="post" action="/cart/add" class="pl-add">
+              <form method="post" action="{{ routes.cart_add_url }}" class="pl-add">
                 <input type="hidden" name="id" value="{{ v.id }}">
                 <input type="hidden" name="quantity" value="1">
                 <button type="submit" class="btn btn-ghost btn-sm" {% unless product.available %}disabled{% endunless %}>

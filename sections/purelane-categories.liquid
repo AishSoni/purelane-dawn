@@ -32,6 +32,8 @@
                 class="pimg"
                 src="{{ block.settings.product.featured_image | image_url: width: 260 }}"
                 alt="{{ block.settings.product.featured_image.alt | default: block.settings.title | escape }}"
+                width="{{ block.settings.product.featured_image.width }}"
+                height="{{ block.settings.product.featured_image.height }}"
                 loading="lazy"
               >
             {%- else -%}

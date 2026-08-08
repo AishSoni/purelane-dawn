@@ -38,6 +38,8 @@
                 class="pimg"
                 src="{{ product.featured_image | image_url: width: 260 }}"
                 alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                width="{{ product.featured_image.width }}"
+                height="{{ product.featured_image.height }}"
                 loading="lazy"
               >
             {%- endfor -%}

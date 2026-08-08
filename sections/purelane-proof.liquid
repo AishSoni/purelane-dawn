@@ -41,7 +41,6 @@
         {%- if proof_collection != blank and proof_collection.products_count > 0 -%}
           {%- liquid
             assign rot_products = proof_collection.products | where: 'featured_image'
-            assign rot_count = rot_products.size
 
             assign note = 'Best seller'
           -%}
@@ -52,6 +51,8 @@
                   class="pimg{% if forloop.first %} on{% endif %}"
                   src="{{ product.featured_image | image_url: width: 400 }}"
                   alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                  width="{{ product.featured_image.width }}"
+                  height="{{ product.featured_image.height }}"
                   data-name="{{ product.title | escape }}"
                   data-note="{{ product.metafields.custom.rotator_note.value | default: note | escape }}"
                   loading="lazy"
