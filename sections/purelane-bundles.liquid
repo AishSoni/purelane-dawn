@@ -16,7 +16,7 @@
   data-scene="3"
   aria-labelledby="pl-bundles-heading-{{ section.id }}"
 >
-  <div class="wrap">
+  <div class="wrap" id="bundles">
     <div class="glass sec-pad rv" style="margin-bottom:16px">
       <div class="panel-head" style="margin-bottom:0">
         {%- if section.settings.kicker != blank -%}
@@ -185,13 +185,13 @@
           "type": "number",
           "id": "price",
           "label": "Bundle price (INR)",
-          "default": 349.0
+          "default": 698.0
         },
         {
           "type": "number",
           "id": "compare_price",
           "label": "Compare-at price (INR, blank to hide)",
-          "default": 598.0
+          "default": 0.0
         },
         {
           "type": "text",
@@ -253,9 +253,9 @@
             "name": "Starter",
             "featured": false,
             "qty": 2,
-            "price": 349.0,
-            "compare_price": 598.0,
-            "per_product": "Flat \u20b9174 per product",
+            "price": 698.0,
+            "compare_price": 0.0,
+            "per_product": "Flat \u20b9349 per product",
             "features_text": "Pick any two products\nFree shipping across India",
             "button_label": "Build this box"
           }
@@ -266,9 +266,9 @@
             "name": "Most popular",
             "featured": true,
             "qty": 3,
-            "price": 499.0,
-            "compare_price": 897.0,
-            "per_product": "Flat \u20b9166 per product",
+            "price": 1197.0,
+            "compare_price": 0.0,
+            "per_product": "Flat \u20b9399 per product",
             "features_text": "Pick any three products\nCovers kitchen and laundry\nFree shipping across India",
             "button_label": "Build this box"
           }
@@ -279,9 +279,9 @@
             "name": "Whole home",
             "featured": false,
             "qty": 5,
-            "price": 799.0,
-            "compare_price": 1495.0,
-            "per_product": "Flat \u20b9160 per product",
+            "price": 1795.0,
+            "compare_price": 0.0,
+            "per_product": "Flat \u20b9359 per product",
             "features_text": "Pick any five products\nEvery room in one order\nFree shipping across India",
             "button_label": "Build this box"
           }

@@ -1,72 +1,82 @@
 {
   "kitchen-essentials": {
     "name": "Kitchen essentials",
-    "tagline": "Dishwash + kitchen cleaner",
-    "inc": "Foaming Kitchen Cleaner (500 ml)\nOrganic Dishwash Liquid Gel (500 ml)",
+    "tagline": "Degreaser + dishwash",
+    "inc": "Kitchen Degreaser Ultra (500 ml)\nDishwashing Liquid With Sweet Orange & Lemon Essential Oil (500 ml)",
     "banner": "",
     "featured": true,
-    "price": 349,
+    "price": 748,
     "link": "/collections/all",
     "products": [
-      "purelane-foaming-kitchen-cleaner",
-      "purelane-organic-dishwash-liquid-gel"
+      "kitchen-degreaser-ultra-500ml",
+      "dishwashing-liquid-with-sweet-orange-lemon-essential-oil-500-ml"
+    ]
+  },
+  "everyday-edit": {
+    "name": "Everyday edit",
+    "tagline": "Floor + dishwash",
+    "inc": "Floor Cleaner Liquid With Geranium & Lavender Essential Oil (500 ml)\nDishwashing Liquid With Sweet Orange & Lemon Essential Oil (500 ml)",
+    "banner": "",
+    "featured": false,
+    "price": 698,
+    "link": "/collections/all",
+    "products": [
+      "floor-cleaner-500-ml",
+      "dishwashing-liquid-with-sweet-orange-lemon-essential-oil-500-ml"
+    ]
+  },
+  "home-basics-edit": {
+    "name": "Home basics edit",
+    "tagline": "Floor, dishwash & laundry",
+    "inc": "Floor Cleaner Liquid With Geranium & Lavender Essential Oil (500 ml)\nDishwashing Liquid With Sweet Orange & Lemon Essential Oil (500 ml)\nLaundry Detergent With Geranium & Lavender Essential Oil (500 ml)",
+    "banner": "Best value",
+    "featured": false,
+    "price": 1197,
+    "link": "/collections/all",
+    "products": [
+      "floor-cleaner-500-ml",
+      "dishwashing-liquid-with-sweet-orange-lemon-essential-oil-500-ml",
+      "eco-friendly-laundry-detergent-skin-friendly-geranium-and-lavender-500ml"
+    ]
+  },
+  "home-essentials-trio": {
+    "name": "Home essentials trio",
+    "tagline": "Every surface in one order",
+    "inc": "All Surface Cleaner With Sweet Orange (500 ml)\nBathroom Cleaner With Sweet Orange & Lemon Essential Oil (500 ml)\nTap & Shower Cleaner (500 ml)",
+    "banner": "",
+    "featured": false,
+    "price": 1097,
+    "link": "/collections/all",
+    "products": [
+      "all-surface-cleaner-with-sweet-orange-500-ml",
+      "bathroom-cleaner-with-sweet-orange-lemon-essential-oil-500-ml",
+      "tap-and-shower-cleaner"
     ]
   },
   "laundry-care-bundle": {
     "name": "Laundry care bundle",
-    "tagline": "Detergent + machine care",
-    "inc": "Non-Toxic Laundry Detergent (500 ml)\nWashing Machine Cleaner & Descaler\nMagic Cleaning Eraser",
+    "tagline": "Detergent + fabric conditioner",
+    "inc": "Laundry Detergent With Geranium & Lavender Essential Oil (500 ml)\nLiquid Fabric Softener and Conditioner With Geranium & Lavender Essential Oil (500 ml)",
     "banner": "",
     "featured": false,
-    "price": 499,
+    "price": 898,
     "link": "/collections/all",
     "products": [
-      "purelane-non-toxic-laundry-detergent",
-      "purelane-washing-machine-cleaner-descaler",
-      "purelane-magic-cleaning-eraser"
+      "eco-friendly-laundry-detergent-skin-friendly-geranium-and-lavender-500ml",
+      "eco-friendly-liquid-fabric-conditioner-skin-friendly-biodegradable-geranium-lavender-essential-oil-500ml"
     ]
   },
-  "complete-home-bundle": {
-    "name": "Complete home bundle",
-    "tagline": "One order, every room",
-    "inc": "Foaming Kitchen Cleaner\nOrganic Dishwash Liquid Gel\nNatural Herbal Floor Cleaner\nNon-Toxic Laundry Detergent\nGentle Hydrating Liquid Handwash",
-    "banner": "Best value",
-    "featured": false,
-    "price": 799,
-    "link": "/collections/all",
-    "products": [
-      "purelane-foaming-kitchen-cleaner",
-      "purelane-organic-dishwash-liquid-gel",
-      "purelane-natural-herbal-floor-cleaner",
-      "purelane-non-toxic-laundry-detergent",
-      "purelane-gentle-hydrating-liquid-handwash"
-    ]
-  },
-  "bathroom-deep-clean": {
-    "name": "Bathroom deep clean",
-    "tagline": "Toilet, taps & hands",
-    "inc": "Non-Toxic Toilet Cleaner (500 ml)\nTap Cleaner & Limescale Remover (500 ml)\nGentle Hydrating Liquid Handwash (500 ml)",
+  "tap-and-shower-duo": {
+    "name": "Tap & shower duo",
+    "tagline": "Limescale + grease",
+    "inc": "Tap & Shower Cleaner (500 ml)\nKitchen Degreaser Ultra (500 ml)",
     "banner": "",
     "featured": false,
-    "price": 499,
+    "price": 698,
     "link": "/collections/all",
     "products": [
-      "purelane-non-toxic-toilet-cleaner",
-      "purelane-tap-cleaner-limescale-remover",
-      "purelane-gentle-hydrating-liquid-handwash"
-    ]
-  },
-  "hard-water-solution-kit": {
-    "name": "Hard water solution kit",
-    "tagline": "For limescale-prone homes",
-    "inc": "Tap Cleaner & Limescale Remover (500 ml)\nWashing Machine Cleaner & Descaler",
-    "banner": "",
-    "featured": false,
-    "price": 349,
-    "link": "/collections/all",
-    "products": [
-      "purelane-tap-cleaner-limescale-remover",
-      "purelane-washing-machine-cleaner-descaler"
+      "tap-and-shower-cleaner",
+      "kitchen-degreaser-ultra-500ml"
     ]
   }
 }
