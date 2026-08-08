@@ -61,7 +61,7 @@
             </div>
           {%- endif -%}
           <div class="fcol" {{ block.shopify_attributes }}>
-            <h5>{{ block.settings.heading | escape }}</h5>
+            <h4 class="fcol-head">{{ block.settings.heading | escape }}</h4>
             {%- assign col_open = true -%}
         {%- elsif block.type == 'link' and col_open -%}
             <a href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</a>
@@ -74,7 +74,7 @@
 
       {%- if section.settings.contact_email != blank or section.settings.contact_phone != blank -%}
         <div class="fcol">
-          <h5>{{ section.settings.contact_heading | escape }}</h5>
+          <h4 class="fcol-head">{{ section.settings.contact_heading | escape }}</h4>
           {%- if section.settings.contact_email != blank -%}
             <a href="mailto:{{ section.settings.contact_email | escape }}">{{ section.settings.contact_email | escape }}</a>
           {%- endif -%}

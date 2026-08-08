@@ -17,13 +17,31 @@
   reordered without breaking markup or scripts.
 {%- endcomment -%}
 
-<header
-  id="shopify-section-{{ section.id }}"
-  class="purelane-header"
-  data-pl
-  data-pl-hdr
-  aria-label="{{ section.settings.aria_label | default: 'Purelane' | escape }}"
->
+<div id="shopify-section-{{ section.id }}" class="purelane-header" data-pl>
+  {%- if section.settings.show_ticker -%}
+    <div class="ticker pl-ticker" aria-hidden="true">
+      <div class="track">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'ticker' -%}
+            {%- liquid
+              assign ticker_text = block.settings.text | escape | replace: '&lt;b&gt;', '<b>' | replace: '&lt;/b&gt;', '</b>'
+            -%}
+            <span>{{ ticker_text }}</span>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'ticker' -%}
+            {%- liquid
+              assign ticker_text = block.settings.text | escape | replace: '&lt;b&gt;', '<b>' | replace: '&lt;/b&gt;', '</b>'
+            -%}
+            <span>{{ ticker_text }}</span>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  <header class="purelane-pill" data-pl-hdr aria-label="{{ section.settings.aria_label | default: 'Purelane' | escape }}">
   <div class="navpill glass pl-navpill">
     <a
       class="brand"
@@ -111,6 +129,7 @@
     </div>
   </div>
 </header>
+</div>
 
 {% javascript %}
   (function () {
@@ -186,9 +205,19 @@
     },
     {
       "type": "text",
-      "id": "account_label",
-      "label": "Account aria-label",
-      "default": "Account"
+      "id": "menu_label",
+      "label": "Menu button aria-label",
+      "default": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Ticker"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_ticker",
+      "label": "Show announcement ticker",
+      "default": true
     },
     {
       "type": "header",
@@ -202,6 +231,19 @@
     }
   ],
   "blocks": [
+    {
+      "type": "ticker",
+      "name": "Ticker message",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Message",
+          "default": "Free shipping <b>on every bundle across India</b>"
+        }
+      ]
+    },
     {
       "type": "nav_link",
       "name": "Navigation link",
@@ -225,6 +267,10 @@
     {
       "name": "Purelane header",
       "blocks": [
+        { "type": "ticker", "settings": { "text": "Free shipping <b>on every bundle across India</b>" } },
+        { "type": "ticker", "settings": { "text": "100% plant-based <b>and non-toxic</b>" } },
+        { "type": "ticker", "settings": { "text": "Loved by <b>30,000+ happy homes</b>" } },
+        { "type": "ticker", "settings": { "text": "Buy 3 <b>at flat ₹1,197</b>" } },
         { "type": "nav_link", "settings": { "label": "Home", "url": "#top" } },
         { "type": "nav_link", "settings": { "label": "Ingredients", "url": "#ingredients" } },
         { "type": "nav_link", "settings": { "label": "How it works", "url": "#how" } },
