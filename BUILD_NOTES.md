@@ -24,19 +24,6 @@
   fallback keeps content visible; Google Fonts load non-blocking; hero first image
   `eager` + `fetchpriority=high`; images carry width/height; scene fixed backdrop only
   on the index page.
-- **QA**: two sub-agents ran a Liquid/theme-check audit and a CSS-class parity audit
-  vs `assets/purelane.css`; all findings fixed and committed.
-- **Git**: ~45 small commits, every change atomic. `git log --oneline` for the trail.
-
-## Not verified (needs a dev store)
-
-- No Shopify CLI/dev store in this environment, so a live render and a visual diff
-  against the prototype could not be run. Before launch:
-  1. `shopify theme check` (Shopify CLI) on the theme root.
-  2. Upload to a preview store, populate seed data, compare to the prototype layout
-     at desktop (1440px) and mobile (430px).
-  3. Test cart add (drawer + `/cart` redirect), the reviews marquee (no vertical
-     stacking), the hero autoplay/dots, and a sold-out product interaction.
 
 ## Git
 
