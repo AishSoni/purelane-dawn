@@ -1,0 +1,241 @@
+{%- comment -%}
+  Purelane footer (purelane-footer)
+  ---------------------------------
+  Rebuilds the prototype's homepage footer (`<footer data-scene="4">`):
+  brand mark + intro in the first `.fcol`, then three merchant link
+  columns (`.fcol`) defined by blocks, an optional contact column fed
+  from settings, and the `.fbot` bottom bar.
+
+  Column blocks and link blocks are ordered: each "Link column" block
+  starts a `.fcol` and every following "Link" block is placed inside
+  it until the next column block.
+
+  The theme's global footer is excluded from the index template in
+  layout/theme.liquid, so this section IS the homepage footer.
+{%- endcomment -%}
+
+<footer
+  id="shopify-section-{{ section.id }}"
+  class="purelane-footer"
+  data-pl
+  aria-label="{{ section.settings.aria_label | default: 'Footer' | escape }}"
+>
+  <div class="wrap">
+    <div class="fgrid">
+      {%- if section.settings.brand_name != blank -%}
+        <div class="fcol">
+          <a
+            class="brand"
+            href="{{ section.settings.brand_link | default: '#' }}"
+            style="margin-bottom:16px"
+            aria-label="{{ section.settings.brand_name | escape }} home"
+          >
+            <span class="mark">
+              {%- render 'pl-icon', icon: 'leaf-dot', size: 23, stroke: 1.5 -%}
+            </span>
+            <span class="txt">
+              <span class="n1">{{ section.settings.brand_name | escape }}</span>
+              {%- if section.settings.brand_tagline != blank -%}
+                <span class="n2">{{ section.settings.brand_tagline | escape }}</span>
+              {%- endif -%}
+            </span>
+          </a>
+          {%- if section.settings.intro != blank -%}
+            <p style="max-width:30ch">{{ section.settings.intro | strip_html | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%}Link columns: each "Link column" block opens a
+      `.fcol`; the "Link" blocks that follow it are placed inside. The
+      `</div>` closers are written in separate Liquid branches, which the
+      static HTML checker can't prove balanced, so that check is disabled
+      for this region only.{%- endcomment -%}
+      {% comment %}theme-check-disable UnclosedHTMLElement{% endcomment %}
+      {%- liquid
+        assign col_open = false
+      -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'column' -%}
+          {%- if col_open -%}
+            </div>
+          {%- endif -%}
+          <div class="fcol" {{ block.shopify_attributes }}>
+            <h5>{{ block.settings.heading | escape }}</h5>
+            {%- assign col_open = true -%}
+        {%- elsif block.type == 'link' and col_open -%}
+            <a href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if col_open -%}
+          </div>
+      {%- endif -%}
+      {% comment %}theme-check-enable UnclosedHTMLElement{% endcomment %}
+
+      {%- if section.settings.contact_email != blank or section.settings.contact_phone != blank -%}
+        <div class="fcol">
+          <h5>{{ section.settings.contact_heading | escape }}</h5>
+          {%- if section.settings.contact_email != blank -%}
+            <a href="mailto:{{ section.settings.contact_email | escape }}">{{ section.settings.contact_email | escape }}</a>
+          {%- endif -%}
+          {%- if section.settings.contact_phone != blank -%}
+            <a href="tel:{{ section.settings.contact_phone | remove: ' ' | remove: '-' | remove: '(' | remove: ')' | escape }}">{{ section.settings.contact_phone | escape }}</a>
+          {%- endif -%}
+          {%- if section.settings.contact_company != blank -%}
+            <p style="font-size:12px;color:rgba(236,230,247,.5)">{{ section.settings.contact_company | strip_html | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="fbot">
+      {%- if section.settings.copyright != blank -%}
+        <span>{{ section.settings.copyright | strip_html | escape }}</span>
+      {%- endif -%}
+      {%- if section.settings.legal != blank -%}
+        <span>{{ section.settings.legal | strip_html | escape }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Purelane footer",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Brand"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand name",
+      "default": "Purelane"
+    },
+    {
+      "type": "text",
+      "id": "brand_tagline",
+      "label": "Tagline",
+      "default": "Clean, simply"
+    },
+    {
+      "type": "url",
+      "id": "brand_link",
+      "label": "Brand link"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro text",
+      "default": "Effective cleaning, powered by nature. Made for Indian homes since day one."
+    },
+    {
+      "type": "header",
+      "content": "Contact column"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "Column heading",
+      "default": "Get in touch"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Email",
+      "default": "hello@purelane.com"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Phone",
+      "default": "+91 9930 123 234"
+    },
+    {
+      "type": "text",
+      "id": "contact_company",
+      "label": "Company line",
+      "default": "Purelane Eco Products Pvt Ltd"
+    },
+    {
+      "type": "header",
+      "content": "Bottom bar"
+    },
+    {
+      "type": "text",
+      "id": "copyright",
+      "label": "Copyright text",
+      "default": "© 2026 Purelane Eco Products Private Limited"
+    },
+    {
+      "type": "text",
+      "id": "legal",
+      "label": "Legal links text",
+      "default": "Privacy · Terms · Refunds · Contact"
+    },
+    {
+      "type": "header",
+      "content": "Accessibility"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Footer aria-label",
+      "default": "Footer"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Link column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Shop"
+        }
+      ]
+    },
+    {
+      "type": "link",
+      "name": "Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Bestsellers"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 24,
+  "presets": [
+    {
+      "name": "Purelane footer",
+      "blocks": [
+        { "type": "column", "settings": { "heading": "Shop" } },
+        { "type": "link", "settings": { "label": "Bestsellers", "url": "#shop" } },
+        { "type": "link", "settings": { "label": "Kitchen", "url": "#shop" } },
+        { "type": "link", "settings": { "label": "Laundry", "url": "#shop" } },
+        { "type": "link", "settings": { "label": "Home", "url": "#shop" } },
+        { "type": "link", "settings": { "label": "Skin", "url": "#shop" } },
+        { "type": "link", "settings": { "label": "Starter kits", "url": "#bundles" } },
+        { "type": "column", "settings": { "heading": "About" } },
+        { "type": "link", "settings": { "label": "How it works", "url": "#how" } },
+        { "type": "link", "settings": { "label": "Sustainability", "url": "#ingredients" } },
+        { "type": "link", "settings": { "label": "FAQs", "url": "#proof" } },
+        { "type": "link", "settings": { "label": "Reviews", "url": "#reviews" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,237 @@
+{%- comment -%}
+  Purelane sticky glass header (purelane-header)
+  ----------------------------------------------
+  Rebuilds the prototype's fixed nav pill (`<header id="hdr">`): brand
+  mark + name, desktop `.nav` links, and Search / Account / Cart tools
+  (the cart `.dot` badge shows the live cart count and links to
+  `routes.cart_url`).
+
+  The prototype has no responsive drawer, so the burger (`<details>` /
+  `<summary>`) is a minimal native disclosure: no JS required to open
+  and close, keyboard focusable, and a tiny scripted addition keeps
+  `aria-expanded` / `aria-controls` in sync and closes the menu on
+  link tap or Escape. `assets/purelane.js` already toggles the `.up`
+  hide-on-scroll class on the `data-pl-hdr` hook.
+
+  All ids are section-scoped so the section can be duplicated or
+  reordered without breaking markup or scripts.
+{%- endcomment -%}
+
+<header
+  id="shopify-section-{{ section.id }}"
+  class="purelane-header"
+  data-pl
+  data-pl-hdr
+  aria-label="{{ section.settings.aria_label | default: 'Purelane' | escape }}"
+>
+  <div class="navpill glass pl-navpill">
+    <a
+      class="brand"
+      href="{{ section.settings.brand_link | default: '#' }}"
+      aria-label="{{ section.settings.brand_name | default: 'Purelane' | escape }} home"
+    >
+      <span class="mark">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M12 3 20.5 8v8L12 21 3.5 16V8L12 3Z"/>
+          <path d="M12 12 20.5 8M12 12v9M12 12 3.5 8"/>
+        </svg>
+      </span>
+      <span class="txt">
+        <span class="n1">{{ section.settings.brand_name | default: 'Purelane' | escape }}</span>
+        {%- if section.settings.brand_tagline != blank -%}
+          <span class="n2">{{ section.settings.brand_tagline | escape }}</span>
+        {%- endif -%}
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Main">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'nav_link' -%}
+          <a href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+
+    <div class="navtools">
+      <a
+        class="ico hide-s"
+        href="{{ section.settings.search_url | default: routes.search_url }}"
+        aria-label="{{ 'general.search.search' | t }}"
+      >
+        {%- render 'pl-icon', icon: 'search', size: 18, stroke: 1.7 -%}
+      </a>
+      <a
+        class="ico hide-s"
+        href="{{ section.settings.account_url | default: routes.account_url }}"
+        aria-label="{{ section.settings.account_label | default: 'Account' | escape }}"
+      >
+        {%- render 'pl-icon', icon: 'user', size: 18, stroke: 1.7 -%}
+      </a>
+      <a
+        class="ico"
+        href="{{ routes.cart_url }}"
+        aria-label="Cart, {{ cart.item_count }} item{% if cart.item_count > 1 %}s{% endif %}"
+      >
+        {%- render 'pl-icon', icon: 'cart', size: 18, stroke: 1.7 -%}
+        <span class="dot" aria-hidden="true">{{ cart.item_count }}</span>
+      </a>
+
+      {%- if section.blocks.size > 0 -%}
+        <details class="pl-drawer" data-pl-drawer>
+          <summary
+            class="ico burger"
+            aria-expanded="false"
+            aria-haspopup="true"
+            aria-controls="pl-drawer-nav-{{ section.id }}"
+          >
+            {%- render 'pl-icon', icon: 'menu', size: 18, stroke: 1.8 -%}
+          </summary>
+          <nav
+            id="pl-drawer-nav-{{ section.id }}"
+            class="pl-drawer-nav"
+            aria-label="Main menu, mobile"
+          >
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'nav_link' -%}
+                <a href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</a>
+              {%- endif -%}
+            {%- endfor -%}
+          </nav>
+        </details>
+      {%- endif -%}
+    </div>
+  </div>
+</header>
+
+{% javascript %}
+  (function () {
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.pl-drawer[data-pl-drawer]').forEach(function (drawer) {
+        var summary = drawer.querySelector('summary');
+        var panel = drawer.querySelector('.pl-drawer-nav');
+
+        function sync() {
+          summary.setAttribute('aria-expanded', drawer.open ? 'true' : 'false');
+        }
+        function close() {
+          if (drawer.open) drawer.open = false;
+          sync();
+        }
+
+        drawer.addEventListener('toggle', sync);
+        drawer.addEventListener('keydown', function (ev) {
+          if (ev.key === 'Escape' && drawer.open) close();
+        });
+        if (panel) {
+          panel.addEventListener('click', function (ev) {
+            if (ev.target.closest('a')) close();
+          });
+        }
+        sync();
+      });
+    });
+  })();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Purelane header",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Brand"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand name",
+      "default": "Purelane"
+    },
+    {
+      "type": "text",
+      "id": "brand_tagline",
+      "label": "Tagline",
+      "default": "Clean, simply"
+    },
+    {
+      "type": "url",
+      "id": "brand_link",
+      "label": "Brand link"
+    },
+    {
+      "type": "header",
+      "content": "Tools"
+    },
+    {
+      "type": "url",
+      "id": "search_url",
+      "label": "Search link",
+      "info": "Defaults to the store's search page."
+    },
+    {
+      "type": "url",
+      "id": "account_url",
+      "label": "Account link",
+      "info": "Defaults to the store's account page."
+    },
+    {
+      "type": "text",
+      "id": "account_label",
+      "label": "Account aria-label",
+      "default": "Account"
+    },
+    {
+      "type": "header",
+      "content": "Accessibility"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Header aria-label",
+      "default": "Purelane"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "nav_link",
+      "name": "Navigation link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Home"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Purelane header",
+      "blocks": [
+        { "type": "nav_link", "settings": { "label": "Home", "url": "#top" } },
+        { "type": "nav_link", "settings": { "label": "Ingredients", "url": "#ingredients" } },
+        { "type": "nav_link", "settings": { "label": "How it works", "url": "#how" } },
+        { "type": "nav_link", "settings": { "label": "Shop", "url": "#shop" } },
+        { "type": "nav_link", "settings": { "label": "Bundles", "url": "#bundles" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

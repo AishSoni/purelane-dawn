@@ -25,6 +25,7 @@ Everything you need to demo on a fresh store, in order:
 
 | Section | Prototype anchor | Data source |
 | --- | --- | --- |
+| purelane-header | `#hdr` glass nav pill | settings (brand, tool links) + nav-link blocks + live `cart.item_count` |
 | purelane-hero | `#hero` 1/2/3-product stage | ctters: product pickers + badges |
 | purelane-reviews | `#reviews` marquee | `review` metaobjects |
 | purelane-combos | `#combos` rail | `combo` metaobject |
@@ -33,10 +34,12 @@ Everything you need to demo on a fresh store, in order:
 | purelane-ingredients / pillars / proof | `#ingredients` / `#how` / `#proof` | blocks/settings |
 | purelane-range / why-bundles / categories | `#range` / `#whybundles` / `#categories` | collection + blocks |
 | purelane-trust-signup | trust bar + ₹100 signup | blocks + Shopify `customer` form |
+| purelane-footer | `footer` fgrid columns + `fbot` | brand/contact settings + link-column blocks |
+| purelane-stickybuy | `.sticky` mobile CTA bar | settings (headline, sub-line, button); hidden at ≥ 960px |
 
 ## Repo layout
 
-- `sections/purelane-*.liquid` — the 12 custom sections (index-only).
+- `sections/purelane-*.liquid` — the 15 custom sections (index-only).
 - `snippets/pl-icon.liquid` — shared inline SVG icon set.
 - `snippets/pl-scene.liquid` — verbatim hero "scenes" backdrop.
 - `assets/purelane.css` — single stylesheet (light palette, merged from prototype V1+V2).

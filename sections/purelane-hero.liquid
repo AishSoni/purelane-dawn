@@ -21,7 +21,7 @@
   {%- comment -%}Fixed underwater canvas (z-index 0, behind content).{%- endcomment -%}
   {%- render 'pl-scene' -%}
 
-  <div class="hero-grid">
+  <div class="hero-grid" id="top">
     {%- if section.blocks.size > 0 -%}
       <div class="pl-badges glass-2" aria-label="Product promises">
         {%- for block in section.blocks -%}

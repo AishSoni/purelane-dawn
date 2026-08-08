@@ -1,5 +1,9 @@
 {
   "sections": {
+    "purelane-header": {
+      "type": "purelane-header",
+      "settings": {}
+    },
     "main": {
       "type": "purelane-hero",
       "settings": {}
@@ -47,9 +51,18 @@
     "purelane-trust-signup": {
       "type": "purelane-trust-signup",
       "settings": {}
+    },
+    "purelane-footer": {
+      "type": "purelane-footer",
+      "settings": {}
+    },
+    "purelane-stickybuy": {
+      "type": "purelane-stickybuy",
+      "settings": {}
     }
   },
   "order": [
+    "purelane-header",
     "main",
     "purelane-reviews",
     "purelane-ingredients",
@@ -61,6 +74,8 @@
     "purelane-range",
     "purelane-why-bundles",
     "purelane-categories",
-    "purelane-trust-signup"
+    "purelane-trust-signup",
+    "purelane-footer",
+    "purelane-stickybuy"
   ]
 }

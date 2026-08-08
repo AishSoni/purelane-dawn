@@ -1,0 +1,93 @@
+{%- comment -%}
+  Purelane sticky buy bar (purelane-stickybuy)
+  --------------------------------------------
+  Mobile-only fixed CTA bar from the prototype (`.sticky`): bold
+  headline + sub-line on the left, "Build bundle" button on the right.
+  The existing `.sticky` CSS rules position it at the bottom of the
+  viewport and hide it at `min-width: 960px`, so no extra styles are
+  needed here.
+
+  The section wrapper is kept minimal (`.sticky` is position:fixed,
+  so the wrapper contributes no layout). The bar only renders when
+  the headline setting is filled in — a merchant can remove the whole
+  bar by blanking it. The default link points at the prototype's
+  #bundles anchor; every route used is a real Shopify `routes.*` value
+  (cart/search/account) and no product data is hardcoded.
+{%- endcomment -%}
+
+<div id="shopify-section-{{ section.id }}" class="purelane-stickybuy" data-pl>
+  {%- if section.settings.heading != blank -%}
+    <div
+      class="sticky"
+      aria-label="{{ section.settings.aria_label | default: section.settings.heading | escape }}"
+    >
+      <span class="lbl">
+        <b>{{ section.settings.heading | escape }}</b>
+        {%- if section.settings.subheading != blank -%}
+          <span>{{ section.settings.subheading | escape }}</span>
+        {%- endif -%}
+      </span>
+      {%- if section.settings.cta_label != blank -%}
+        <a class="btn btn-primary btn-sm" href="{{ section.settings.cta_link | default: '#bundles' }}">
+          {{- section.settings.cta_label | escape -}}
+        </a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Purelane sticky buy bar",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Bar"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Headline (bold line)",
+      "default": "Pick any 3, pay ₹499"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sub-line",
+      "default": "Free shipping, always"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Build bundle"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link",
+      "default": "#bundles"
+    },
+    {
+      "type": "header",
+      "content": "Accessibility"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Bar aria-label",
+      "info": "Defaults to the headline."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane sticky buy bar"
+    }
+  ]
+}
+{% endschema %}

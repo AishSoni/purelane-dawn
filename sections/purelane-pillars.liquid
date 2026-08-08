@@ -12,7 +12,7 @@
   data-scene="2"
   aria-label="{{ section.settings.heading | default: 'How it works' }}"
 >
-  <div class="wrap">
+  <div class="wrap" id="how">
     <div class="pillars">
       {%- for block in section.blocks -%}
         <article class="glass pillar rv{% if forloop.index > 1 %} rv-d{{ forloop.index }}{% endif %}" {{ block.shopify_attributes }}>
