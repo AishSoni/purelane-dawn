@@ -20,12 +20,3 @@
      placeholder; long titles clamp to two lines.
   6. `where: 'featured_image'` (truthy), `.value` on metafields, `badgestrip` prefix,
      and `.revdup` flex rule for the marquee seam (all flagged by QA agents and fixed).
-- **a11y / CWV**: `prefers-reduced-motion` kills animation & reveals; `noscript`
-  fallback keeps content visible; Google Fonts load non-blocking; hero first image
-  `eager` + `fetchpriority=high`; images carry width/height; scene fixed backdrop only
-  on the index page.
-
-## Git
-
-Local-only repo (`E:\assignment\purelane-dawn`). To share: `git remote add origin <url>`
-then `git push -u origin main`, or zip the folder excluding `.git`.
