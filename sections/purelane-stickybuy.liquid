@@ -10,9 +10,9 @@
   The section wrapper is kept minimal (`.sticky` is position:fixed,
   so the wrapper contributes no layout). The bar only renders when
   the headline setting is filled in — a merchant can remove the whole
-  bar by blanking it. The default link points at the prototype's
-  #bundles anchor; every route used is a real Shopify `routes.*` value
-  (cart/search/account) and no product data is hardcoded.
+  bar by blanking it. The button link is blank by default and falls
+  back to the prototype's `#bundles` anchor; it is a plain `url`
+  setting, so a merchant can point it at any product or page.
 {%- endcomment -%}
 
 <div id="shopify-section-{{ section.id }}" class="purelane-stickybuy" data-pl>
@@ -71,7 +71,7 @@
       "type": "url",
       "id": "cta_link",
       "label": "Button link",
-      "default": "#bundles"
+      "info": "Leave blank to point at the #bundles anchor."
     },
     {
       "type": "header",
