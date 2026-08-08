@@ -12,6 +12,9 @@
 
 {%- assign pl_collection = section.settings.collection -%}
 {%- assign pl_products_to_show = section.settings.products_to_show -%}
+{%- if pl_collection == blank -%}
+  {%- assign pl_collection = collections.all -%}
+{%- endif -%}
 
 <section
   id="shopify-section-{{ section.id }}"
